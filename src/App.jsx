@@ -6,6 +6,12 @@ const App = () => {
   const [incompleteTodos, setIncompleteTodos] = useState(["あああ", "いいい"]);
   const [completeTodos, setCompleteTodos] = useState(["ううう", "えええ"]);
 
+  const spliceTodo = (index, list, setter) => {
+    const newList = [...list];
+    newList.splice(index, 1);
+    setter(newList);
+  };
+
   const onChangeTodoText = (event) => setTodoText(event.target.value);
   const onClickAdd = () => {
     if (todoText === "") return;
@@ -15,21 +21,17 @@ const App = () => {
     setTodoText("");
   };
   const onClickDelete = (index) => {
-    const newTodos = [...incompleteTodos];
-    newTodos.splice(index, 1);
-    setIncompleteTodos(newTodos);
+    spliceTodo(index, incompleteTodos, setIncompleteTodos);
   };
   const onClickComplete = (index) => {
     const newCompleteTodo = [...completeTodos, incompleteTodos[index]];
     setCompleteTodos(newCompleteTodo);
-    onClickDelete(index);
+    spliceTodo(index, incompleteTodos, setIncompleteTodos);
   };
   const onClickRevert = (index) => {
     const newIncompleteTodo = [...incompleteTodos, completeTodos[index]];
     setIncompleteTodos(newIncompleteTodo);
-    const newCompleteTodos = [...completeTodos];
-    newCompleteTodos.splice(index, 1);
-    setCompleteTodos(newCompleteTodos);
+    spliceTodo(index, completeTodos, setCompleteTodos);
   };
   return (
     <>
