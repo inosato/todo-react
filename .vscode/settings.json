@@ -1,0 +1,12 @@
+{
+    "[go]": {
+
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "javascript.format.enable": false,
+    "source.fixAll.eslint": true,
+}
