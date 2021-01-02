@@ -4,7 +4,7 @@ import "./styles.css";
 const App = () => {
   const [todoText, setTodoText] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState(["あああ", "いいい"]);
-  const [completeTodos] = useState(["ううう", "えええ"]);
+  const [completeTodos, setCompleteTodos] = useState(["ううう", "えええ"]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
   const onClickAdd = () => {
@@ -19,6 +19,11 @@ const App = () => {
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
   };
+  const onClickComplete = (index) => {
+    const newCompleteTodo = [...completeTodos, incompleteTodos[index]];
+    setCompleteTodos(newCompleteTodo);
+    onClickDelete(index);
+  };
   return (
     <>
       <div className="input-area">
@@ -32,7 +37,7 @@ const App = () => {
             return (
               <div key={index} className="list-row">
                 <li>{todo}</li>
-                <button>完了</button>
+                <button onClick={() => onClickComplete(index)}>完了</button>
                 <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             );
