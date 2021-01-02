@@ -24,6 +24,13 @@ const App = () => {
     setCompleteTodos(newCompleteTodo);
     onClickDelete(index);
   };
+  const onClickRevert = (index) => {
+    const newIncompleteTodo = [...incompleteTodos, completeTodos[index]];
+    setIncompleteTodos(newIncompleteTodo);
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+    setCompleteTodos(newCompleteTodos);
+  };
   return (
     <>
       <div className="input-area">
@@ -51,7 +58,7 @@ const App = () => {
             return (
               <div key={index} className="list-row">
                 <li>{todo}</li>
-                <button>戻す</button>
+                <button onClick={() => onClickRevert(index)}>戻す</button>
               </div>
             );
           })}
