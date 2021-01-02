@@ -1,30 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
 const App = () => {
+  const [todoText, setTodoText] = useState("");
+  const [incompleteTodos, setIncompleteTodos] = useState(["あああ", "いいい"]);
+  const [completeTodos] = useState(["ううう", "えええ"]);
+
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+  const onClickAdd = () => {
+    if (todoText === "") return;
+    // eslint-disable-next-line no-undef
+    alert(todoText);
+    setIncompleteTodos([...incompleteTodos, todoText]);
+    setTodoText("");
+  };
   return (
     <>
       <div className="input-area">
-        <input placeholder="TODOを入力" />
-        <button>追加</button>
+        <input value={todoText} onChange={onChangeTodoText} />
+        <button onClick={onClickAdd}>追加</button>
       </div>
       <div className="incomplete-area">
         <p className="title">未完了のTODO</p>
         <ul>
-          <div className="list-row">
-            <li>あああ</li>
-            <button>完了</button>
-            <button>削除</button>
-          </div>
+          {incompleteTodos.map((todo, index) => {
+            return (
+              <div key={index} className="list-row">
+                <li>{todo}</li>
+                <button>完了</button>
+                <button>削除</button>
+              </div>
+            );
+          })}
         </ul>
       </div>
       <div className="complete-area">
         <p className="title">完了済のTODO</p>
         <ul>
-          <div className="list-row">
-            <li>あああ</li>
-            <button>戻す</button>
-          </div>
+          {completeTodos.map((todo, index) => {
+            return (
+              <div key={index} className="list-row">
+                <li>{todo}</li>
+                <button>戻す</button>
+              </div>
+            );
+          })}
         </ul>
       </div>
     </>
